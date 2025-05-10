@@ -66,7 +66,7 @@ public class RateLimitFilter implements Filter {
     }
 
     private RequestInfo computeRequestInfo(String key, long now) {
-        return ipRequests.compute(key, (_, info) -> {
+        return ipRequests.compute(key, (computeKey, info) -> {
             if (info == null || now - info.timestamp() > configurer.configureRateLimitDurationByKey(key).toMillis()) {
                 return new RequestInfo(1, now);
             } else {
