@@ -10,7 +10,9 @@ public interface RateLimitConfigurer {
 
     int configureRateLimit();
 
-    String getRateLimitKey(HttpServletRequest request);
+    default String getRateLimitKey(HttpServletRequest request){
+        return request.getRemoteAddr();
+    }
 
     default Duration configureRateLimitDurationByKey(String key) {
         return configureRateLimitDuration();
